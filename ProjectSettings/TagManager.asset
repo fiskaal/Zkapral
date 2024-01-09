@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - CountAndDeath
+  - Glass
+  - Porcelan
+  - Cutlery
+  - Plates
+  - Food
+  - Decoration
   layers:
   - Default
   - TransparentFX
