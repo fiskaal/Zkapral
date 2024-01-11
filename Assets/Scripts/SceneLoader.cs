@@ -5,17 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-
-    [SerializeField] private GameObject _startingSceneTransition;
-    [SerializeField] private GameObject _endingSceneTransition;
-
-    private void Start()
-    {
-        _startingSceneTransition.SetActive(true);
-    }
-    public void LoadMainScene()
+    public void LoadGameScene()
     {
         SceneManager.LoadScene("GameScene");
     }
 }
-
