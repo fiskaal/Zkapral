@@ -31,7 +31,7 @@ public class CountdownTimer : MonoBehaviour
         // Display the updated time in the TextMeshProUGUI component
         if (timerText != null)
         {
-            timerText.text = Mathf.CeilToInt(currentTime).ToString();
+            timerText.text = "TIME REMAINING: " + Mathf.CeilToInt(currentTime).ToString();
         }
 
         // Check if the countdown is finished

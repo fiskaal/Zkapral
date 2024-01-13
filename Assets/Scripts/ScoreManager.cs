@@ -27,7 +27,29 @@ public class ScoreManager : MonoBehaviour
         if (other.CompareTag("Glass"))
         {
             // Increase the score
-            score+=10;
+            score+=15;
+
+            // Update the score display
+            UpdateScoreText();
+
+            // You can do additional actions here, such as playing a sound or particle effect
+        }
+
+        if (other.CompareTag("Cutlery"))
+        {
+            // Increase the score
+            score += 15;
+
+            // Update the score display
+            UpdateScoreText();
+
+            // You can do additional actions here, such as playing a sound or particle effect
+        }
+
+        if (other.CompareTag("Plates"))
+        {
+            // Increase the score
+            score += 15;
 
             // Update the score display
             UpdateScoreText();
@@ -38,7 +60,7 @@ public class ScoreManager : MonoBehaviour
         if (other.CompareTag("Decoration"))
         {
             // Increase the score
-            score += 10;
+            score += 5;
 
             // Update the score display
             UpdateScoreText();
@@ -74,7 +96,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (scoreText != null)
         {
-            scoreText.text = "Score: " + score;
+            scoreText.text = "SCORE: " + score;
         }
     }
 }

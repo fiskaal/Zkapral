@@ -12,6 +12,7 @@ TagManager:
   - Food
   - Decoration
   - Ground
+  - Floor
   layers:
   - Default
   - TransparentFX
