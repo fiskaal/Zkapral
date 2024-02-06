@@ -6,6 +6,7 @@ public class FadeInMusic : MonoBehaviour
 {
     public AudioSource audioSource;
     public float fadeInTime = 3.0f;
+   
 
     private void Start()
     {
@@ -21,9 +22,10 @@ public class FadeInMusic : MonoBehaviour
 
         // Call the FadeIn method
         StartCoroutine(FadeIn());
+       
     }
 
-    private System.Collections.IEnumerator FadeIn()
+    private IEnumerator FadeIn()
     {
         float elapsedTime = 0f;
 
@@ -38,4 +40,6 @@ public class FadeInMusic : MonoBehaviour
         // Ensure the volume is set to 1 at the end
         audioSource.volume = 1f;
     }
+
+     
 }

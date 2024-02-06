@@ -4,36 +4,41 @@ using UnityEngine;
 
 public class FadeOut : MonoBehaviour
 {
-    public AudioSource music; // Reference to your music AudioSource
-    public float fadeSpeed = 0.5f; // Adjust the fade speed as needed
+    public AudioSource audioSource;
+    public float fadeDuration = 3.0f; // You can adjust the fade duration as needed
+    private float fadeTimer = 0.0f;
+    private bool fading = false;
 
-    
-
-    private bool isFading = false;
-
-    void OnTriggerEnter(Collider other)
+    void Start()
     {
-        if (other.CompareTag("Player") && !isFading)
+        
+        Invoke("StartFadeOut", 20.0f); // Start fading out after 30 seconds
+    }
+
+    void Update()
+    {
+        if (fading)
         {
-            isFading = true;
-            StartCoroutine(FadeOutMusic());
+            MusicFadeOut();
         }
     }
 
-    
-
-    IEnumerator FadeOutMusic()
+    void StartFadeOut()
     {
-        Debug.Log("Fading out music");
-        while (music.volume > 0)
-        {
-            float delta = fadeSpeed * (Time.timeScale == 0 ? Time.unscaledDeltaTime : Time.deltaTime);
-            music.volume -= delta;
-            Debug.Log("Current volume: " + music.volume);
-            yield return null;
-        }
+        fading = true;
+    }
 
-        music.Stop(); // Stop the music after fading out
-        Debug.Log("Music stopped");
+    void MusicFadeOut()
+    {
+        fadeTimer += Time.deltaTime;
+
+        float volume = Mathf.Lerp(1.0f, 0.0f, fadeTimer / fadeDuration);
+        audioSource.volume = volume;
+
+        if (fadeTimer >= fadeDuration)
+        {
+            fading = false;
+            audioSource.Stop();
+        }
     }
 }
