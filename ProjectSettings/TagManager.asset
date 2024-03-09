@@ -13,14 +13,19 @@ TagManager:
   - Decoration
   - Ground
   - Floor
+  - BrownFungi
+  - GreenFungi
+  - OrangeFungi
+  - RedFungi
+  - YellowFungi
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 
