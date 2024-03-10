@@ -18,6 +18,10 @@ TagManager:
   - OrangeFungi
   - RedFungi
   - YellowFungi
+  - WhiteFungi
+  - BlackFungi
+  - Respawn2
+  - Respawn3
   layers:
   - Default
   - TransparentFX
