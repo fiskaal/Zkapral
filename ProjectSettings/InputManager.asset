@@ -231,7 +231,7 @@ InputManager:
     joyNum: 0
   - serializedVersion: 3
     m_Name: Jump
-    descriptiveName: 
+    descriptiveName: Space
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: joystick button 3
@@ -279,9 +279,9 @@ InputManager:
     joyNum: 0
   - serializedVersion: 3
     m_Name: Cancel
-    descriptiveName: 
+    descriptiveName: Escape
     descriptiveNegativeName: 
-    negativeButton: 
+    negativeButton: escape
     positiveButton: escape
     altNegativeButton: 
     altPositiveButton: joystick button 1
@@ -485,3 +485,4 @@ InputManager:
     type: 2
     axis: 5
     joyNum: 0
+  m_UsePhysicalKeys: 0

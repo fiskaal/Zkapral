@@ -15,10 +15,12 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Escape"))
+        
+        if (Input.GetButtonDown("Cancel"))
         {
             Time.timeScale = 0;
             pauseMenu.SetActive(true);
         }
+        
     }
 }

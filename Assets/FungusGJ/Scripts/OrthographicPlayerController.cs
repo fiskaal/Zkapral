@@ -73,11 +73,13 @@ public class OrthographicPlayerController : MonoBehaviour
             whiteFungus.SetActive(true);
 
         }
-        if (Input.GetButtonDown("Escape"))
+        
+        if (Input.GetButtonDown("Cancel"))
         {
             Time.timeScale = 0;
             pauseMenu.SetActive(true);
         }
+        
 
 
 
