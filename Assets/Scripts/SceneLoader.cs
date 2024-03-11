@@ -9,4 +9,14 @@ public class SceneLoader : MonoBehaviour
     {
         SceneManager.LoadScene("GameScene");
     }
+
+    public void LoadFungusScene()
+    {
+        SceneManager.LoadScene("FungusGameScene");
+    }
+
+    public void LoadFungusMenu()
+    {
+        SceneManager.LoadScene("FungusMainMenuScene");
+    }
 }

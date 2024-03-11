@@ -8,8 +8,9 @@ public class VCamShake : MonoBehaviour
 
     public static VCamShake instance;
 
-    private CinemachineVirtualCamera vcam;
+    public CinemachineVirtualCamera vcam;
     public CinemachineBasicMultiChannelPerlin noise;
+    public CinemachineHardLockToTarget target;
     public NoiseSettings ns;
     
    
@@ -19,8 +20,10 @@ public class VCamShake : MonoBehaviour
         instance = this;
         vcam = GetComponent<CinemachineVirtualCamera>();
         noise = vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        target = vcam.GetCinemachineComponent<CinemachineHardLockToTarget>();
         noise.m_AmplitudeGain = 0.4f;
         noise.m_FrequencyGain = 0.2f;
+        target.m_Damping = 3f;
     }
 
     

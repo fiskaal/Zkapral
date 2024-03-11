@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using TMPro;
 
 public class OrthographicPlayerController : MonoBehaviour
 {
@@ -13,18 +14,44 @@ public class OrthographicPlayerController : MonoBehaviour
     public AudioSource w3;
     public AudioSource GameSound;
     public AudioSource GameMusic;
+    public AudioSource pickup1;
+    public AudioSource pickup2;
+    public AudioSource pickup3;
+    public GameObject blackCanvas;
+    public GameObject whiteCanvas;
     public LayerMask groundLayer;
     public HueOnCollisionEnter hue;
     public VCamShake shakeScript;
     public CinemachineVirtualCamera cm;
     public CinemachineBasicMultiChannelPerlin perlin;
-   
+    public int collectedMushrooms = 0;
+    
+    public TextMeshProUGUI scoreText;
+    public GameObject whiteFungus;
+    public GameObject blackFungus;
+    public GameObject pauseMenu;
+
+
 
     private bool isGrounded;
 
     private void Awake()
     {
         perlin = cm.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        
+
+        shakeScript.noise.m_AmplitudeGain = .4f;
+        shakeScript.noise.m_FrequencyGain = .2f;
+        shakeScript.target.m_Damping = 2f;
+        Time.timeScale = 1;
+        collectedMushrooms = 0;
+        blackFungus.SetActive(false);
+        whiteFungus.SetActive(true);
+
+    }
+    private void Start()
+    {
+        UpdateScoreText();
     }
 
     void Update()
@@ -35,7 +62,24 @@ public class OrthographicPlayerController : MonoBehaviour
         // Move the player
         MovePlayer();
 
-        
+        if(collectedMushrooms >= 40)
+        {
+            blackFungus.SetActive(true);
+            whiteFungus.SetActive(false);
+        }
+        else
+        {
+            blackFungus.SetActive(false);
+            whiteFungus.SetActive(true);
+
+        }
+        if (Input.GetButtonDown("Escape"))
+        {
+            Time.timeScale = 0;
+            pauseMenu.SetActive(true);
+        }
+
+
 
         // Make the player jump
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
@@ -62,6 +106,14 @@ public class OrthographicPlayerController : MonoBehaviour
             GameSound.Play();
             GameMusic.Play();
             NumberOfCollisions = 0;
+        }
+    }
+
+    private void UpdateScoreText()
+    {
+        if (scoreText != null)
+        {
+            scoreText.text = "" + collectedMushrooms;
         }
     }
 
@@ -100,13 +152,15 @@ public class OrthographicPlayerController : MonoBehaviour
             {
                 shakeScript.noise.m_AmplitudeGain += .1f;
             }
-            if(shakeScript.noise.m_FrequencyGain >= .2f)
-            {
-                shakeScript.noise.m_AmplitudeGain += .1f;
-            }
-            
-            
-            
+
+            other.gameObject.SetActive(false);
+
+            pickup1.Play();
+            collectedMushrooms++;
+            UpdateScoreText();
+            NumberOfCollisions++;
+
+
 
 
         }
@@ -121,9 +175,19 @@ public class OrthographicPlayerController : MonoBehaviour
             {
                 hue.timeScale = 0;
             }
+
+            if (shakeScript.noise.m_FrequencyGain >= .2f)
+            {
+                shakeScript.noise.m_FrequencyGain += .1f;
+            }
+
             moveSpeed += 1f;
             NumberOfCollisions++;
             hue.chromaScale += .1f;
+            pickup2.Play();
+            other.gameObject.SetActive(false);
+            collectedMushrooms++;
+            UpdateScoreText();
         }
 
         if (other.gameObject.tag == "GreenFungi") // Replace "Floor" with the tag of your floor object
@@ -140,6 +204,11 @@ public class OrthographicPlayerController : MonoBehaviour
             NumberOfCollisions++;
 
             hue.chromaScale += .1f;
+            shakeScript.target.m_Damping += 1f;
+            pickup3.Play();
+            other.gameObject.SetActive(false);
+            collectedMushrooms++;
+            UpdateScoreText();
 
         }
 
@@ -157,9 +226,21 @@ public class OrthographicPlayerController : MonoBehaviour
             {
                 hue.vScale += .1f;
             }
+            if(NumberOfCollisions <= 2)
+            {
+                NumberOfCollisions++;
+            }
+            else
+            {
+                NumberOfCollisions = 1;
+            }
 
-            NumberOfCollisions = 2;
+            
             moveSpeed += 1f;
+            pickup1.Play();
+            other.gameObject.SetActive(false);
+            collectedMushrooms++;
+            UpdateScoreText();
         }
 
         if (other.gameObject.tag == "BrownFungi") // Replace "Floor" with the tag of your floor object
@@ -182,6 +263,52 @@ public class OrthographicPlayerController : MonoBehaviour
             NumberOfCollisions--;
 
             hue.chromaScale -= .1f;
+            pickup2.Play();
+            other.gameObject.SetActive(false);
+            collectedMushrooms++;
+            UpdateScoreText();
+
+        }
+
+        if (other.gameObject.tag == "WhiteFungi") // Replace "Floor" with the tag of your floor object
+        {
+            hue.timeScale = 0f;
+
+
+            moveSpeed = 10f;
+
+
+            hue.vScale = .3f;
+
+
+            NumberOfCollisions = 0; ;
+
+            hue.chromaScale = 0f;
+
+            shakeScript.noise.m_FrequencyGain = .2f;
+            shakeScript.noise.m_AmplitudeGain = .4f;
+            shakeScript.target.m_Damping = 3f;
+            pickup3.Play();
+            Time.timeScale = 0;
+            whiteCanvas.SetActive(true);
+            other.gameObject.SetActive(false);
+            collectedMushrooms++;
+        }
+
+        if(other.gameObject.tag == "BlackFungi")
+        {
+            hue.vScale = 100;
+            moveSpeed = 100f;
+            hue.timeScale = 1000f;
+            hue.chromaScale = 100f;
+            shakeScript.noise.m_FrequencyGain = 20f;
+            shakeScript.noise.m_AmplitudeGain = 40f;
+            shakeScript.target.m_Damping = 30f;
+            pickup1.Play();
+            Time.timeScale = 0;
+            blackCanvas.SetActive(true);
+            other.gameObject.SetActive(false);
+            collectedMushrooms++;
 
         }
     }
