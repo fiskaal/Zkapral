@@ -22,6 +22,7 @@ TagManager:
   - BlackFungi
   - Respawn2
   - Respawn3
+  - Music
   layers:
   - Default
   - TransparentFX
